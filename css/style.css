@@ -1,6 +1,7 @@
 :root{
   --color-bg:#f3f2f2;
   --color-text: #201e1d;
+  --color-muted: #6b6866;
   --color-line: #d9d6d3;
   --color-accent: #0088b0;
   --color-accent-strong: #00708f;
@@ -49,6 +50,7 @@ a:hover{
   color: var(--color-accent-2);
 }
 .brand-dot { color: var(--color-accent-2); }
+/* ──  네비게이션 (Flexbox) ───────────────────── */
 .nav-menu{
   display: none;
 }
@@ -95,6 +97,52 @@ a:hover{
 .hamburger.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ──  Hero  ──────────────────────────── */
+.hero { padding-top: var(--space-7); padding-bottom: var(--space-5); }
+.dateline {
+  margin: 0 0 var(--space-3);
+  color: var(--color-muted);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.hero-title {
+  font-size: var(--fs-hero);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+}
+.type-wrap { display: inline; }
+.typed { color: var(--color-accent); }
+.caret {
+  display: inline-block;
+  width: 3px; height: 0.85em;
+  margin-left: 2px;
+  vertical-align: -0.06em;
+  background: var(--color-accent-2);
+  animation: blink 900ms step-end infinite;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.hero-body { font-size: var(--fs-lg); color: var(--color-muted); max-width: 46ch; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+
+/* ──  버튼 ───────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.7rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+.btn-primary { background: var(--color-accent); color: #fff; }
+[data-theme="dark"] .btn-primary { color: #101010; }
+.btn-primary:hover { background: var(--color-accent-strong); color: #fff; }
+[data-theme="dark"] .btn-primary:hover { color: #101010; }
+.btn-primary:active { transform: translateY(1px); }
+.btn-ghost { border-color: var(--color-line); color: var(--color-text); background: transparent; }
+.btn-ghost:hover { border-color: var(--color-accent); color: var(--color-accent); background: var(--color-accent-soft); }
 
 /* ──  태블릿 768px ──────────────────────────── */
 @media (min-width: 768px) {
