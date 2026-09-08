@@ -44,3 +44,13 @@ hamburger.addEventListener('click', () => {
   }
   tick();
 })();
+/* ──  스크롤 상태 →  탑 버튼 ─────── */
+const toTop = $('#toTop');
+function onScroll() {
+  const y = window.scrollY;
+  toTop.classList.toggle('visible', y > CONFIG.topBtnThreshold);
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
