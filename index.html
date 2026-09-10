@@ -29,8 +29,8 @@
         </div>
     </div>
     </header>
-    <main>
     <!-- ── Hero ─────────────────────────────────────── -->
+    <main>
         <section class="hero" id="hero">
             <p class="dateline">Seoul · App &amp; Backend · 2026</p>
             <h1 class="hero-title">
@@ -100,7 +100,7 @@
                 <p class="contact-mail"><a href="https://github.com/Eunseo-415" target="_blank" rel="noopener">github.com/Eunseo-415</a></p>
                 </div>
 
-                <form class="form" id="contactForm" novalidate>
+                <form class="form" id="contactForm" action="https://formspree.io/f/mgaerrzn" method="POST">                
                 <div class="field">
                     <label for="name">이름</label>
                     <input class="input" type="text" id="name" name="name" placeholder="이름" autocomplete="name">
@@ -116,9 +116,9 @@
                     <textarea class="input" id="message" name="message" rows="5" placeholder="어떤 이야기든 편하게 적어 주세요."></textarea>
                     <p class="error" id="err-message" hidden></p>
                 </div>
-                <button class="btn btn-primary btn-block" type="submit">보내기</button>
+               <button class="btn btn-primary btn-block" type="submit">보내기</button>
                 <p class="success" id="formSuccess" hidden>보내 주셔서 감사합니다. 곧 답장드리겠습니다.</p>
-                </form>
+                <p class="error-text" id="formError" hidden>전송에 실패했습니다. 잠시 후 다시 시도해 주세요.</p>
             </div>
         </section>
     </main>
