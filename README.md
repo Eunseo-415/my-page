@@ -48,13 +48,13 @@ README.md
 - [x] 다크 모드 설정을 `localStorage`에 저장, 새로고침 후에도 유지
 
 ### 5. 배포
-- [ ] GitHub Pages 배포 후 URL 연결 `<!-- TODO -->`
+- [x] GitHub Pages 배포 후 URL 연결 `<!-- TODO -->`
 
 ### 보너스 과제
 - [x] 프로젝트 필터링 — GitHub 저장소를 언어별로 필터링하는 버튼 (`array.filter()`)
 - [x] 타이핑 효과 — Hero 섹션 문구가 한 글자씩 나타나는 타자기 효과
 - [x] 폼 실제 전송 — Formspree 연동으로 Contact 폼이 실제 이메일 전송
-- [ ] 시스템 다크 모드 감지 — `prefers-color-scheme` 미반영 (현재는 `localStorage` 저장값 또는 기본 라이트로만 시작)
+- [x] 시스템 다크 모드 감지 — `prefers-color-scheme`
 
 ## 설정값 (`js/main.js` 상단 `CONFIG`)
 
