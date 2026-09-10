@@ -2,7 +2,7 @@
 
 바닐라 HTML · CSS · JavaScript로 만든 1페이지 반응형 포트폴리오입니다. React 학습 이전에 DOM 조작, 이벤트 처리, 비동기 통신, "이벤트 → 상태 변경 → 렌더링" 흐름을 직접 구현하며 체득하는 것을 목표로 한 학습용 과제입니다.
 
-- **배포 URL**: `<!-- TODO: https://<github-id>.github.io/<repo-name>/ -->`
+- **배포 URL**: https://eunseo-415.github.io/my-page/
 - **저장소 URL**: https://github.com/Eunseo-415/my-page 
 
 ## 스크린샷
@@ -48,7 +48,7 @@ README.md
 - [x] 다크 모드 설정을 `localStorage`에 저장, 새로고침 후에도 유지
 
 ### 5. 배포
-- [ ] GitHub Pages 배포 후 URL 연결 `<!-- TODO -->`
+- [x] GitHub Pages 배포 후 URL 연결 `<!-- TODO -->`
 
 ### 보너스 과제
 - [x] 프로젝트 필터링 — GitHub 저장소를 언어별로 필터링하는 버튼 (`array.filter()`)
