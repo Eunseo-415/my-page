@@ -7,6 +7,9 @@
   --color-accent-strong: #00708f;
   --color-accent-soft: #e2f1f6;
   --color-accent-2: #d6006c;
+  --color-surface: #ffffff;
+  --color-nav: rgba(243, 242, 242, 0);
+  --color-nav-scrolled: rgba(243, 242, 242, 0.92);
 
   --font-heading: "Source Serif 4", Georgia, serif;
   --font-body: "Source Serif 4", Georgia, serif;
@@ -35,9 +38,26 @@
   --ease: 200ms cubic-bezier(0.2, 0.6, 0.2, 1);
   --measure: 62ch;
 }
+/* ──다크 ─────────────────────────────── */
+[data-theme="dark"] {
+  --color-bg: #1a1918;
+  --color-surface: #232120;
+  --color-text: #f1efed;
+  --color-muted: #a29d99;
+  --color-line: #3a3634;
+  --color-accent: #4cb6d6;
+  --color-accent-strong: #7fcde5;
+  --color-accent-soft: #1f3038;
+  --color-accent-2: #ff5c9d;
+  --color-nav: rgba(26, 25, 24, 0);
+  --color-nav-scrolled: rgba(26, 25, 24, 0.92);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.55);
+}
 
 * {box-sizing: border-box;}
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 body{
   background-color: var(--color-bg);
   color: var(--color-text);
@@ -52,15 +72,45 @@ a:hover{
 }
 .brand-dot { color: var(--color-accent-2); }
 /* ──  네비게이션 (Flexbox) ───────────────────── */
-.nav-menu{
-  display: none;
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-nav);
+  transition: background-color var(--ease), box-shadow var(--ease);
+}
+.nav.scrolled {
+  background: var(--color-nav-scrolled);
+  box-shadow: var(--shadow-sm);
 }
 .nav-inner{
+  position: relative;
   justify-content: space-between;
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
 }
+.nav-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 45;
+  display: none;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-md);
+}
+.nav-menu.active { display: flex; }
+.nav-menu a {
+  padding: var(--space-1) 0;
+  color: var(--color-text);
+  font-size: var(--fs-md);
+}
+.nav-menu a:hover { color: var(--color-accent); }
 .nav-tools{
   display: flex;
   align-items: center;
@@ -106,6 +156,12 @@ a:hover{
   padding: 0 var(--space-3);
 }
 .section { padding-top: var(--space-6); padding-bottom: var(--space-2); }
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+}
+.reveal.visible { opacity: 1; transform: none; }
 .kicker {
   margin: 0 0 var(--space-2);
   color: var(--color-accent);
@@ -293,7 +349,6 @@ a:hover{
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
-  transition: opacity var(--ease), transform var(--ease), background var(--ease);
   z-index: 40;
 }
 .to-top.visible { opacity: 1; transform: none; pointer-events: auto; }
@@ -310,9 +365,10 @@ a:hover{
     flex-direction: row;
     gap: var(--space-4);
     padding: 0;
+    margin-left: auto;
     background: none;
     box-shadow: none;
-  }   
+  }
   .nav-menu a { font-size: var(--fs-sm); }
   .about-grid { grid-template-columns: 1fr 1.5fr; gap: var(--space-5); align-items: start; }
   .contact-grid { grid-template-columns: 1fr 1fr; gap: var(--space-5); }

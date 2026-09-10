@@ -16,8 +16,57 @@ const hamburger = $('#hamburger');
 const navMenu = $('#navMenu');
 hamburger.addEventListener('click', () => {
   const open = navMenu.classList.toggle('active');
-  hamburger.classList.toggle('active'); 
+  hamburger.classList.toggle('active');
 });
+
+/* ──  스크롤 상태 → 네비게이션 배경 ───────────── */
+const nav = $('#nav');
+function onNavScroll() {
+  nav.classList.toggle('scrolled', window.scrollY > CONFIG.navThreshold);
+}
+window.addEventListener('scroll', onNavScroll, { passive: true });
+onNavScroll();
+
+/* ──  스크롤 상태 → 등장 애니메이션 (Intersection Observer) ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('visible');
+    revealObserver.unobserve(entry.target);
+  });
+}, { threshold: CONFIG.revealThreshold });
+document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+/* ── 메뉴 닫기 ───────────── */
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    navMenu.classList.remove('active');
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+  });
+});
+
+/* ──  다크 모드 ───────────────────────────────
+   상태(theme) → localStorage 저장 → data-theme 속성 → 전체 스타일 */
+const themeState = { theme: localStorage.getItem('theme') || 'light' };
+
+function renderTheme() {
+  document.documentElement.setAttribute('data-theme', themeState.theme);
+  $('#themeIcon').textContent = themeState.theme === 'dark' ? '☀' : '☾';
+  $('#themeToggle').setAttribute(
+    'aria-label',
+    themeState.theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'
+  );
+  localStorage.setItem('theme', themeState.theme);
+}
+
+$('#themeToggle').addEventListener('click', () => {
+  themeState.theme = themeState.theme === 'dark' ? 'light' : 'dark';
+  renderTheme();
+});
+renderTheme();
+
+
 
 /* ──  타이핑 효과 ─────────────────────────────── */
 (function typewriter() {
