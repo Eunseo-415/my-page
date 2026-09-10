@@ -181,6 +181,62 @@ a:hover{
 .skill-name { font-size: var(--fs-lg); font-weight: 600; min-width: 8rem; }
 .skill-note { color: var(--color-muted); font-size: var(--fs-sm); }
 
+/* ──  Projects (Grid auto-fit / minmax) ─────── */
+.proj-head { margin-bottom: var(--space-3); }
+.proj-sub { color: var(--color-muted); font-size: var(--fs-sm); }
+.filters { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-bottom: var(--space-4); }
+.filter-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-muted);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  cursor: pointer;
+  transition: all var(--ease);
+}
+.filter-btn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.filter-btn.active { background: var(--color-text); border-color: var(--color-text); color: var(--color-bg); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-3);
+}
+.card {
+  display: flex; flex-direction: column;
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--color-accent); }
+.card-kicker { color: var(--color-accent); font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-1); }
+.card-title { font-size: var(--fs-lg); margin-bottom: var(--space-1); word-break: break-word; }
+.card-title a { color: inherit; }
+.card-title a:hover { color: var(--color-accent); }
+.card-body { color: var(--color-muted); font-size: var(--fs-sm); flex: 1; margin-bottom: var(--space-3); }
+.card-meta { display: flex; flex-wrap: wrap; gap: var(--space-2); color: var(--color-muted); font-size: var(--fs-xs); }
+.card-meta strong { color: var(--color-text); font-weight: 600; }
+
+.state { padding: var(--space-2) 0 var(--space-4); }
+.state-msg { color: var(--color-muted); font-size: var(--fs-sm); }
+.error-text { color: var(--color-accent-2); }
+.skeleton-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-3); margin-bottom: var(--space-3); }
+.skeleton {
+  height: 168px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: linear-gradient(100deg, transparent 20%, var(--color-accent-soft) 50%, transparent 80%) var(--color-surface);
+  background-size: 300% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer { from { background-position: 150% 0; } to { background-position: -150% 0; } }
+
+
 /* ──  Contact 폼 ────────────────────────────── */
 .contact-grid { display: grid; gap: var(--space-4); }
 .contact-mail { font-size: var(--fs-lg); }

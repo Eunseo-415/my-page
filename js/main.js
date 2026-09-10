@@ -113,6 +113,90 @@ form.addEventListener('submit', async (event) => {
     $('#formSuccess').hidden = false;
   } catch (err) {
     console.error(err);
-    // 전송 실패 에러 UI 필요하면 여기 추가
+    $('#formError').hidden = false;  
   }
 });
+
+/* ──  Projects — GitHub API
+   상태(status/repos/filter) → 로딩·에러·성공 렌더링 */
+const projState = { status: 'loading', repos: [], filter: 'All' };
+
+const els = {
+  loading: $('#projLoading'),
+  error: $('#projError'),
+  grid: $('#projGrid'),
+  empty: $('#projEmpty'),
+  filters: $('#filters'),
+};
+// 화면 그리기
+function renderProjects() {
+  const { status, repos, filter } = projState;
+
+  els.loading.hidden = status !== 'loading';
+  els.error.hidden = status !== 'error';
+  els.grid.hidden = status !== 'success';
+  els.filters.hidden = status !== 'success';
+  els.empty.hidden = true;
+
+  if (status !== 'success') return;
+
+  // 필터 버튼
+  const langs = ['All', ...new Set(repos.map((r) => r.language).filter(Boolean))];
+  els.filters.innerHTML = langs
+    .map(
+      (l) =>
+        `<button type="button" class="filter-btn${l === filter ? ' active' : ''}" data-lang="${l}">${l}</button>`
+    )
+    .join('');
+
+  const visible = filter === 'All' ? repos : repos.filter((r) => r.language === filter);
+  els.empty.hidden = visible.length > 0;
+  //  카드 그리기
+  els.grid.innerHTML = visible
+    .map(
+      (r) => `
+      <article class="card">
+        <p class="card-kicker">${r.language || 'Repository'}</p>
+        <h3 class="card-title"><a href="${r.html_url}" target="_blank" rel="noopener">${r.name}</a></h3>
+        <p class="card-body">${r.description ? escapeHtml(r.description) : '설명이 없는 저장소입니다.'}</p>
+        <p class="card-meta">
+          <span><strong>★ ${r.stargazers_count}</strong> stars</span>
+          <span>포크 ${r.forks_count}</span>
+          <span>${new Date(r.pushed_at).toLocaleDateString('ko-KR')} 갱신</span>
+        </p>
+      </article>`
+    )
+    .join('');
+}
+// 설명(description)에 혹시 들어갈 html 태그를 텍스트로 읽게 하는것
+function escapeHtml(str) {
+  return str.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+}
+//필터버튼 클릭 처리
+els.filters.addEventListener('click', (event) => {
+  const btn = event.target.closest('.filter-btn');
+  if (!btn) return;
+  projState.filter = btn.dataset.lang;
+  renderProjects();
+});
+//데이터 가져오기
+async function loadRepos() {
+  projState.status = 'loading';
+  renderProjects();
+  try {
+    const res = await fetch(
+      `https://api.github.com/users/${CONFIG.githubUser}/repos?sort=pushed&per_page=100`
+    );
+    if (!res.ok) throw new Error(`GitHub ${res.status}`);
+    const data = await res.json();
+    projState.repos = data.filter((r) => !r.fork).slice(0, CONFIG.maxRepos);
+    projState.status = 'success';
+  } catch (err) {
+    console.error(err);
+    projState.status = 'error';
+  }
+  renderProjects();
+}
+//재시도 버튼
+$('#retryBtn').addEventListener('click', loadRepos);
+loadRepos();
