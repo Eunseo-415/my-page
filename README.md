@@ -54,7 +54,7 @@ README.md
 - [x] 프로젝트 필터링 — GitHub 저장소를 언어별로 필터링하는 버튼 (`array.filter()`)
 - [x] 타이핑 효과 — Hero 섹션 문구가 한 글자씩 나타나는 타자기 효과
 - [x] 폼 실제 전송 — Formspree 연동으로 Contact 폼이 실제 이메일 전송
-- [ ] 시스템 다크 모드 감지 — `prefers-color-scheme` 미반영 (현재는 `localStorage` 저장값 또는 기본 라이트로만 시작)
+- [x] 시스템 다크 모드 감지 — `prefers-color-scheme` 미디어 쿼리로 첫 방문 시 OS 다크 모드 설정을 기본값으로 반영 (`localStorage`에 저장된 값이 있으면 그 값이 항상 우선)
 
 ## 설정값 (`js/main.js` 상단 `CONFIG`)
 

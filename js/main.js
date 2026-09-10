@@ -48,7 +48,8 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 
 /* ──  다크 모드 ───────────────────────────────
    상태(theme) → localStorage 저장 → data-theme 속성 → 전체 스타일 */
-const themeState = { theme: localStorage.getItem('theme') || 'light' };
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const themeState = { theme: localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light') };
 
 function renderTheme() {
   document.documentElement.setAttribute('data-theme', themeState.theme);
